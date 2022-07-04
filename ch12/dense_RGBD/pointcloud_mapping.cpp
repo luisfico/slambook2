@@ -1,3 +1,9 @@
+/*
+Run:
+cd ch12
+./build/dense_RGBD/surfel_mapping dense_RGBD/data/cloudExample.pcd
+*/
+
 #include <iostream>
 #include <fstream>
 
