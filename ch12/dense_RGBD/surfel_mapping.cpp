@@ -11,6 +11,7 @@
 #include <pcl/surface/mls.h>
 #include <pcl/surface/gp3.h>
 #include <pcl/surface/impl/mls.hpp>
+#include <pcl/io/ply_io.h>
 
 // typedefs
 typedef pcl::PointXYZRGB PointT;
@@ -82,6 +83,9 @@ int main(int argc, char **argv) {
     // Compute a greedy surface triangulation
     cout << "computing mesh ... " << endl;
     pcl::PolygonMeshPtr mesh = triangulateMesh(surfels);
+
+    // Save mesh ascii
+    pcl::io::savePLYFile ("saved_mesh_ascii.ply", *mesh);
 
     cout << "display mesh ... " << endl;
     pcl::visualization::PCLVisualizer vis;
