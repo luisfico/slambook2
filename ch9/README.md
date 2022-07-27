@@ -2,7 +2,7 @@
 Note about  problem-16-22106-pre.txt:
 dataset    https://grail.cs.washington.edu/projects/bal/
 
-Header: 16 22106 83718bal problem file loaded...
+Header: 16 22106 83718 bal problem file loaded...
 bal problem have 16 cameras and 22106 points.
 Forming 83718 observations.
 
@@ -18,13 +18,25 @@ example
 0 to 15 pose cameras
 0 to 22105 map points
 
-Los 22016 map points fueron observados 83719 veces por todas las camaras 
+Los 22016 map points fueron observados 83718 veces por todas las camaras 
 
 
 
 WHAT IS THE FORMAT of problem-16-22106-pre.txt   ??
 A partir de la linea 83720 hasta la 150181 que significa???  (unkonw values   150181-83719= 66462 ??)
 
+A partir de esa linea se termino de observar los map points
+<num_cameras> <num_points> <num_observations>
+<camera_index_1> <point_index_1> <x_1> <y_1>
+...
+
+Luego viene
+
+
+
+
+
+********************
 
 Data Format
 Each problem is provided as a bzip2 compressed text file in the following format.
