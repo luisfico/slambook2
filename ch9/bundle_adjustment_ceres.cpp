@@ -1,3 +1,5 @@
+/* Run:    ./build/bundle_adjustment_ceres problem-16-22106-pre.txt 
+*/
 #include <iostream>
 #include <ceres/ceres.h>
 #include "common.h"
