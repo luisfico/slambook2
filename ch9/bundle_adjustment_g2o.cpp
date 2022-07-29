@@ -13,7 +13,7 @@ using namespace Sophus;
 using namespace Eigen;
 using namespace std;
 
-/// 姿态和内参的结构
+/// La estructura de la actitud y la referencia interna
 struct PoseAndIntrinsics {
     PoseAndIntrinsics() {}
 
@@ -26,7 +26,7 @@ struct PoseAndIntrinsics {
         k2 = data_addr[8];
     }
 
-    /// 将估计值放入内存
+    /// Poner estimaciones en la memoria
     void set_to(double *data_addr) {
         auto r = rotation.log();
         for (int i = 0; i < 3; ++i) data_addr[i] = r[i];
@@ -43,6 +43,7 @@ struct PoseAndIntrinsics {
 };
 
 /// 位姿加相机内参的顶点，9维，前三维为so3，接下去为t, f, k1, k2
+// Los vértices de la pose más los parámetros internos de la cámara, 9 dimensiones, las tres primeras dimensiones son so3, y las siguientes son t, f, k1, k2
 class VertexPoseAndIntrinsics : public g2o::BaseVertex<9, PoseAndIntrinsics> {
 public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
