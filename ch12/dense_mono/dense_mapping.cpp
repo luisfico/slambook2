@@ -24,9 +24,11 @@ using namespace Eigen;
 using namespace cv;
 
 /**********************************************
-* 本程序演示了单目相机在已知轨迹下的稠密深度估计
-* 使用极线搜索 + NCC 匹配的方式，与书本的 12.2 节对应
-* 请注意本程序并不完美，你完全可以改进它——我其实在故意暴露一些问题(这是借口)。
+∗ This program demonstrates the dense depth estimation of a monocular camera under a
+known trajectory
+∗ use epipolar search + NCC matching method, which corresponds to section 12.2 of the
+book
+∗ Please note that this program is not perfect, you can improve it by yourself.
 ***********************************************/
 
 // ------------------------------------------------------------------
@@ -54,7 +56,7 @@ bool readDatasetFiles(
 );
 
 /**
- * 根据新的图像更新深度估计
+ * update depth using new images
  * @param ref           参考图像
  * @param curr          当前图像
  * @param T_C_R         参考图像到当前图像的位姿
@@ -457,8 +459,8 @@ void evaludateDepth(const Mat &depth_truth, const Mat &depth_estimate) {
 
 void showEpipolarMatch(const Mat &ref, const Mat &curr, const Vector2d &px_ref, const Vector2d &px_curr) {
     Mat ref_show, curr_show;
-    cv::cvtColor(ref, ref_show, CV_GRAY2BGR);
-    cv::cvtColor(curr, curr_show, CV_GRAY2BGR);
+    cv::cvtColor(ref, ref_show, cv::COLOR_BGRA2GRAY);
+    cv::cvtColor(curr, curr_show, cv::COLOR_BGRA2GRAY);
 
     cv::circle(ref_show, cv::Point2f(px_ref(0, 0), px_ref(1, 0)), 5, cv::Scalar(0, 0, 250), 2);
     cv::circle(curr_show, cv::Point2f(px_curr(0, 0), px_curr(1, 0)), 5, cv::Scalar(0, 0, 250), 2);
@@ -472,8 +474,8 @@ void showEpipolarLine(const Mat &ref, const Mat &curr, const Vector2d &px_ref, c
                       const Vector2d &px_max_curr) {
 
     Mat ref_show, curr_show;
-    cv::cvtColor(ref, ref_show, CV_GRAY2BGR);
-    cv::cvtColor(curr, curr_show, CV_GRAY2BGR);
+    cv::cvtColor(ref, ref_show, cv::COLOR_BGRA2GRAY);
+    cv::cvtColor(curr, curr_show, cv::COLOR_BGRA2GRAY);
 
     cv::circle(ref_show, cv::Point2f(px_ref(0, 0), px_ref(1, 0)), 5, cv::Scalar(0, 255, 0), 2);
     cv::circle(curr_show, cv::Point2f(px_min_curr(0, 0), px_min_curr(1, 0)), 5, cv::Scalar(0, 255, 0), 2);

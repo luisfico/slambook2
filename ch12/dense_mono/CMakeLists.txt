@@ -14,9 +14,14 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(Sophus REQUIRED)
 include_directories(${Sophus_INCLUDE_DIRS})
 
+#Need install fmt library:       sudo apt-get install -y libfmt-dev
+find_package(fmt)
+include_directories(fmt)
+
 set(THIRD_PARTY_LIBS
         ${OpenCV_LIBS}
-        ${Sophus_LIBRARIES})
+        ${Sophus_LIBRARIES}
+        fmt::fmt)
 
 add_executable(dense_mapping dense_mapping.cpp)
 target_link_libraries(dense_mapping ${THIRD_PARTY_LIBS})

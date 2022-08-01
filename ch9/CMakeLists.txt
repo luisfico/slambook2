@@ -12,13 +12,17 @@ Find_Package(Ceres REQUIRED)
 Find_Package(Sophus REQUIRED)
 Find_Package(CSparse REQUIRED)
 
-#SET(G2O_LIBS g2o_csparse_extension g2o_stuff g2o_core cxsparse)
+#G2O needs install fmt library:       sudo apt-get install -y libfmt-dev
+find_package(fmt)
+include_directories(fmt)
+
+SET(G2O_LIBS g2o_csparse_extension g2o_stuff g2o_core cxsparse fmt::fmt)
 
 include_directories(${PROJECT_SOURCE_DIR} ${EIGEN3_INCLUDE_DIR} ${CSPARSE_INCLUDE_DIR})
 
 add_library(bal_common common.cpp)
 add_executable(bundle_adjustment_ceres bundle_adjustment_ceres.cpp)
-#add_executable(bundle_adjustment_g2o bundle_adjustment_g2o.cpp)
+add_executable(bundle_adjustment_g2o bundle_adjustment_g2o.cpp)
 
 target_link_libraries(bundle_adjustment_ceres ${CERES_LIBRARIES} bal_common)
-#target_link_libraries(bundle_adjustment_g2o ${G2O_LIBS} bal_common)
+target_link_libraries(bundle_adjustment_g2o ${G2O_LIBS} bal_common)

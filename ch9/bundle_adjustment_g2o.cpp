@@ -1,3 +1,6 @@
+/* Run:    ./build/bundle_adjustment_g2o problem-16-22106-pre.txt 
+*/
+
 #include <g2o/core/base_vertex.h>
 #include <g2o/core/base_binary_edge.h>
 #include <g2o/core/block_solver.h>
