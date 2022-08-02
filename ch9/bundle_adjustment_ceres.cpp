@@ -1,4 +1,6 @@
-/* Run:    ./build/bundle_adjustment_ceres problem-16-22106-pre.txt 
+/* 
+Run:    ./build/bundle_adjustment_ceres problem-16-22106-pre.txt 
+Run:    ./build/bundle_adjustment_ceres 3cameras/problem-16-22106-3cam.txt 
 */
 #include <iostream>
 #include <ceres/ceres.h>
