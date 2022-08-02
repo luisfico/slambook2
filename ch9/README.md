@@ -80,3 +80,9 @@ pos 3d de los puntos iniciales
 px
 py
 pz
+
+
+********** NEW TEST only 3cameras
+3 cameras
+15225 map points
+23341 observations
