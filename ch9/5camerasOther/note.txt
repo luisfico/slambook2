@@ -1,0 +1,4 @@
+5 cameras 
+325 points 
+784 observations
+
