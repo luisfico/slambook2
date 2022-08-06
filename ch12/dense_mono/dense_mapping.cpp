@@ -209,8 +209,12 @@ int main(int argc, char **argv)
     Mat depth(height, width, CV_64F, init_depth);     // 深度图
     Mat depth_cov2(height, width, CV_64F, init_cov2); // 深度图方差
 
+
+    imwrite("build/ref_depth.png", ref_depth);
+
     //------- MainLoop
     //for (int index = 1; index < 2; index++) //DEBUG: Just 1 loop 
+    //for (int index = 1; index < 3; index++) //DEBUG: Just 1 loop
     for (int index = 1; index < color_image_files.size(); index++)
     {
         cout << "*** loop " << index << " ***" << endl;
@@ -221,9 +225,12 @@ int main(int argc, char **argv)
         SE3d pose_T_C_R = pose_curr_TWC.inverse() * pose_ref_TWC; // 坐标转换关系： T_C_W * T_W_R = T_C_R
         update(ref, curr, pose_T_C_R, depth, depth_cov2);
         evaludateDepth(ref_depth, depth);
-        plotDepth(ref_depth, depth);
-        imshow("image", curr);
-        waitKey(1);
+        //plotDepth(ref_depth, depth);
+        //imshow("image", curr);
+        //waitKey(1);
+
+        imwrite("build/depth_loop"+std::to_string(index)+".png", depth); //our estimate
+
     }
 
     cout << "estimation returns, saving depth map ..." << endl;
@@ -250,7 +257,6 @@ int main(int argc, char **argv)
     // For debug  -------- map ------------end
 */
     imwrite("build/ref_depth.pgm", ref_depth);
-
     imwrite("build/depth.png", depth);
     imwrite("build/depth.pgm", depth); //our estimate
     cout << "done." << endl;
