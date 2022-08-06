@@ -1,5 +1,7 @@
 // RUN $ ./build/dense_mono/dense_mapping ~/dataset/test_data
 // RUN $ ./build/dense_mono/dense_mapping /home/lc/env/sb/slambook2/tmp/remode_test_data/test_data
+// RUN $ ./build/dense_mono/dense_mapping /home/lc/datasets/pxEnvVO/datasetVuzixTool119/hipCenter/CapturesJPG/aSelectEnvironmentFixContinousCapture
+
 // too slow   offline    201 loops
 
 /*TODO
@@ -46,7 +48,7 @@ const int boarder = 20;   // 边缘宽度
 const int width = 640;    // 图像宽度
 const int height = 480;   // 图像高度
 const double fx = 481.2f; // 相机内参
-const double fy = -480.0f;
+const double fy = 480.0f;
 const double cx = 319.5f;
 const double cy = 239.5f;
 const int ncc_window_size = 3;                                              // NCC 取的窗口半宽度
@@ -181,8 +183,14 @@ void showEpipolarLine(const Mat &ref, const Mat &curr, const Vector2d &px_ref, c
 void evaludateDepth(const Mat &depth_truth, const Mat &depth_estimate);
 // ------------------------------------------------------------------
 
+
+
+std::ofstream logMap0;
+std::ofstream logMap;
+
 int main(int argc, char **argv)
 {
+
     if (argc != 2)
     {
         cout << "Usage: dense_mapping path_to_test_dataset" << endl;
@@ -209,8 +217,44 @@ int main(int argc, char **argv)
     Mat depth(height, width, CV_64F, init_depth);     // 深度图
     Mat depth_cov2(height, width, CV_64F, init_cov2); // 深度图方差
 
+    //Save depth image!
+    double scaleToSaveMtoMM=1000;
+    cv::Mat ref_depth_save_MM=ref_depth.clone(); 
+    ref_depth_save_MM=ref_depth_save_MM*scaleToSaveMtoMM;
+    ref_depth_save_MM.convertTo(ref_depth_save_MM,CV_16UC1); //from CV_64F(double) to CV_16UC1 <0 to 2^16mm=65.536m>  to save depth image in .png
+    imwrite("build/depthMM_ref.png", ref_depth_save_MM);
 
-    imwrite("build/ref_depth.png", ref_depth);
+
+        logMap0.open("build/logMapM_ref.csv");
+        logMap0 << "//X;Y;Z;color\n";
+        logMap0 << "0;0;0;origin\n"; // Intial pose frame camera
+    
+
+        // For debug  -------- map ------------init    to save  .txt or .pcd 
+        cout << "logMap_ref" << endl;
+        //double depthScale0 = scaleConversion/1000; // de mm a m
+        double depthScale0 = 1; // in m 
+        for (int v = 1; v < ref_depth.rows; v++)
+        {
+            for (int u = 1; u < ref_depth.cols; u++)
+            {
+                double depth_scaled = ref_depth.ptr<double>(v)[u]; // depth value is 16−bit  //la intensidad de profundidad esta en mm??
+                //unsigned int depth_scaled = ref_depth.ptr<unsigned short>(v)[u]; // depth value is 16−bit  //la intensidad de profundidad esta en mm??
+                // if (200 < depth_scaled && depth_mm < 700)                        // depth filter mm    impact on RANSAC
+                if (0 < depth_scaled )
+                {
+                    // Punto 3D desde el camera frame
+                    double Z = depth_scaled * depthScale0; // 3d Z                                //la intensidad de profundidad esta en mm?? , lo convertimos a m
+                    double X = (u - cx) * Z / fx;             // 3d X = x.Z/fx
+                    double Y = (v - cy) * Z / fy;             // 3d Y = x.Z/fy
+                    //std::cout << X << ";" << Y << ";" << Z << std::endl;
+                    logMap0 <<X<<";"<<Y<<";"<<Z<<"\n"; // Intial pose frame camera
+                }
+            }
+        }
+        logMap0.close();
+        // For debug  -------- map ------------end
+
 
     //------- MainLoop
     //for (int index = 1; index < 2; index++) //DEBUG: Just 1 loop 
@@ -229,36 +273,51 @@ int main(int argc, char **argv)
         //imshow("image", curr);
         //waitKey(1);
 
-        imwrite("build/depth_loop"+std::to_string(index)+".png", depth); //our estimate
+        //Save depth image!
+        //double scaleToSaveMtoMM=1000;
+        cv::Mat depth_save_MM=depth.clone()*scaleToSaveMtoMM;
+        depth_save_MM.convertTo(depth_save_MM,CV_16UC1); //from CV_64F(double) to CV_16UC1 <0 to 2^16mm=65.536m>  to save depth image in .png
+        imwrite("build/depthMM_loop"+std::to_string(index)+".png", depth_save_MM); //our estimate
+        //imwrite("build/depth_loop"+std::to_string(index)+".pgm", depth); //our estimate
+
+
+        logMap.open("build/logMapM_loop"+std::to_string(index)+".csv");
+        logMap << "//X;Y;Z;color\n";
+        logMap << "0;0;0;origin\n"; // Intial pose frame camera
+    
+
+        // For debug  -------- map ------------init    to save  .txt or .pcd 
+        cout << "map" << endl;
+        //double depthScale = scaleConversion/1000; // de mm a m
+        double depthScale = 1; // in m 
+        for (int v = 1; v < depth.rows; v++)
+        {
+            for (int u = 1; u < depth.cols; u++)
+            {
+                double depth_scaled = depth.ptr<double>(v)[u]; // depth value is 16−bit  //la intensidad de profundidad esta en mm??
+                //unsigned int depth_scaled = ref_depth.ptr<unsigned short>(v)[u]; // depth value is 16−bit  //la intensidad de profundidad esta en mm??
+                // if (200 < depth_scaled && depth_mm < 700)                        // depth filter mm    impact on RANSAC
+                if (0 < depth_scaled )
+                {
+                    // Punto 3D desde el camera frame
+                    double Z = double(depth_scaled) * depthScale; // 3d Z                                //la intensidad de profundidad esta en mm?? , lo convertimos a m
+                    double X = (u - cx) * Z / fx;             // 3d X = x.Z/fx
+                    double Y = (v - cy) * Z / fy;             // 3d Y = x.Z/fy
+                    //std::cout << X << ";" << Y << ";" << Z << std::endl;
+                    logMap <<X<<";"<<Y<<";"<<Z<<"\n"; // Intial pose frame camera
+                }
+            }
+        }
+        logMap.close();
+        // For debug  -------- map ------------end
+
 
     }
 
     cout << "estimation returns, saving depth map ..." << endl;
 
-/*
-    // For debug  -------- map ------------init    to save  .txt or .pcd 
-    cout << "map" << endl;
-    double depthScale = 1000.0; // de mm a m
-    for (unsigned int v = 1; v < height; v++)
-    {
-        for (unsigned int u = 1; u < width; u++)
-        {
-            unsigned int depth_mm = depth.ptr<unsigned short>(v)[u]; // depth value is 16−bit  //la intensidad de profundidad esta en mm??
-            // if (200 < depth_mm && depth_mm < 700)                        // depth filter mm    impact on RANSAC
-            {
-                // Punto 3D desde el camera frame
-                double Z = double(depth_mm) / depthScale; // 3d Z                                //la intensidad de profundidad esta en mm?? , lo convertimos a m
-                double X = (u - cx) * Z / fx;             // 3d X = x.Z/fx
-                double Y = (v - cy) * Z / fy;             // 3d Y = x.Z/fy
-                std::cout << X << ";" << Y << ";" << Z << std::endl;
-            }
-        }
-    }
-    // For debug  -------- map ------------end
-*/
-    imwrite("build/ref_depth.pgm", ref_depth);
-    imwrite("build/depth.png", depth);
-    imwrite("build/depth.pgm", depth); //our estimate
+    imwrite("build/depth_final.png", depth);
+    //imwrite("build/depth_final.pgm", depth); //our estimate
     cout << "done." << endl;
 
     return 0;
@@ -495,8 +554,9 @@ bool updateDepthFilter(
 // 后面这些太简单我就不注释了（其实是因为懒）
 void plotDepth(const Mat &depth_truth, const Mat &depth_estimate)
 {
-    imshow("depth_truth", depth_truth * 0.4);
-    imshow("depth_estimate", depth_estimate * 0.4);
+    double scaleToShow=0.4; //for this example  for 0-2.5m is <0;1>       scale 0.4=1 max/2.5m max
+    imshow("depth_truth", depth_truth * scaleToShow);
+    imshow("depth_estimate", depth_estimate * scaleToShow);
     imshow("depth_error", depth_truth - depth_estimate);
     waitKey(1);
 }
