@@ -1,0 +1,205 @@
+
+[100%] Built target pointcloud_mapping
+lc@px ~/env/sb/slambook2/ch12 (devBA)$ ./build/dense_mono/dense_mapping /home/lc/env/sb/slambook2/tmp/remode_test_data/test_data
+read total 202 files.
+*** loop 1 ***
+Average squared error = 1.84285, average error: -1.12517
+*** loop 2 ***
+Average squared error = 1.42146, average error: -0.865388
+*** loop 3 ***
+Average squared error = 1.05544, average error: -0.62268
+*** loop 4 ***
+Average squared error = 0.879682, average error: -0.515219
+*** loop 5 ***
+Average squared error = 0.45456, average error: -0.177368
+*** loop 6 ***
+Average squared error = 0.396917, average error: -0.128648
+*** loop 7 ***
+Average squared error = 0.364525, average error: -0.10006
+*** loop 8 ***
+Average squared error = 0.350139, average error: -0.0846463
+*** loop 9 ***
+Average squared error = 0.340283, average error: -0.0772053
+*** loop 10 ***
+Average squared error = 0.33158, average error: -0.0711183
+*** loop 11 ***
+Average squared error = 0.325072, average error: -0.0668866
+*** loop 12 ***
+Average squared error = 0.319159, average error: -0.0616391
+*** loop 13 ***
+Average squared error = 0.314988, average error: -0.0576226
+*** loop 14 ***
+Average squared error = 0.310317, average error: -0.0543783
+*** loop 15 ***
+Average squared error = 0.307007, average error: -0.0517104
+*** loop 16 ***
+Average squared error = 0.303809, average error: -0.0494419
+*** loop 17 ***
+Average squared error = 0.301496, average error: -0.0477169
+*** loop 18 ***
+Average squared error = 0.29937, average error: -0.0460657
+*** loop 19 ***
+Average squared error = 0.298098, average error: -0.0450207
+*** loop 20 ***
+Average squared error = 0.297042, average error: -0.0441052
+*** loop 21 ***
+Average squared error = 0.296148, average error: -0.0433047
+*** loop 22 ***
+Average squared error = 0.295283, average error: -0.0425199
+*** loop 23 ***
+Average squared error = 0.294497, average error: -0.0418232
+*** loop 24 ***
+Average squared error = 0.293742, average error: -0.041222
+*** loop 25 ***
+Average squared error = 0.293078, average error: -0.0406909
+*** loop 26 ***
+Average squared error = 0.292565, average error: -0.0402602
+*** loop 27 ***
+Average squared error = 0.292156, average error: -0.0398931
+*** loop 28 ***
+Average squared error = 0.29175, average error: -0.0395667
+*** loop 29 ***
+Average squared error = 0.291299, average error: -0.039213
+*** loop 30 ***
+Average squared error = 0.290664, average error: -0.0387603
+*** loop 31 ***
+Average squared error = 0.290207, average error: -0.0384232
+*** loop 32 ***
+Average squared error = 0.289564, average error: -0.0379961
+*** loop 33 ***
+Average squared error = 0.289188, average error: -0.0377423
+*** loop 34 ***
+Average squared error = 0.288831, average error: -0.0373817
+*** loop 35 ***
+Average squared error = 0.28817, average error: -0.0369678
+*** loop 36 ***
+Average squared error = 0.28776, average error: -0.0366581
+*** loop 37 ***
+Average squared error = 0.287351, average error: -0.0363875
+*** loop 38 ***
+Average squared error = 0.286935, average error: -0.0361054
+*** loop 39 ***
+Average squared error = 0.286412, average error: -0.0357438
+*** loop 40 ***
+Average squared error = 0.286035, average error: -0.0354668
+*** loop 41 ***
+Average squared error = 0.285515, average error: -0.0351336
+*** loop 42 ***
+Average squared error = 0.285065, average error: -0.0347902
+*** loop 43 ***
+Average squared error = 0.284475, average error: -0.0343607
+*** loop 44 ***
+Average squared error = 0.28398, average error: -0.0339508
+*** loop 45 ***
+Average squared error = 0.283484, average error: -0.0335148
+*** loop 46 ***
+Average squared error = 0.282962, average error: -0.0330495
+*** loop 47 ***
+Average squared error = 0.282207, average error: -0.0324266
+*** loop 48 ***
+Average squared error = 0.281722, average error: -0.0319794
+*** loop 49 ***
+Average squared error = 0.28126, average error: -0.0314696
+*** loop 50 ***
+Average squared error = 0.280613, average error: -0.0308946
+*** loop 51 ***
+Average squared error = 0.28026, average error: -0.0304983
+*** loop 52 ***
+Average squared error = 0.279829, average error: -0.0301666
+*** loop 53 ***
+Average squared error = 0.279481, average error: -0.0299143
+*** loop 54 ***
+Average squared error = 0.279225, average error: -0.0297782
+*** loop 55 ***
+Average squared error = 0.279094, average error: -0.029697
+*** loop 56 ***
+Average squared error = 0.278851, average error: -0.0295862
+*** loop 57 ***
+Average squared error = 0.278791, average error: -0.029543
+*** loop 58 ***
+Average squared error = 0.278614, average error: -0.0294611
+*** loop 59 ***
+Average squared error = 0.278394, average error: -0.0293722
+*** loop 60 ***
+Average squared error = 0.278216, average error: -0.0292925
+*** loop 61 ***
+Average squared error = 0.27807, average error: -0.0292332
+*** loop 62 ***
+Average squared error = 0.277898, average error: -0.0291654
+*** loop 63 ***
+Average squared error = 0.277636, average error: -0.0290669
+*** loop 64 ***
+Average squared error = 0.27748, average error: -0.0290065
+*** loop 65 ***
+Average squared error = 0.277296, average error: -0.0289307
+*** loop 66 ***
+Average squared error = 0.277196, average error: -0.0288859
+*** loop 67 ***
+Average squared error = 0.277002, average error: -0.028802
+*** loop 68 ***
+Average squared error = 0.276857, average error: -0.0287179
+*** loop 69 ***
+Average squared error = 0.276716, average error: -0.0286261
+*** loop 70 ***
+Average squared error = 0.276543, average error: -0.028536
+*** loop 71 ***
+Average squared error = 0.276391, average error: -0.0284512
+*** loop 72 ***
+Average squared error = 0.276233, average error: -0.0283694
+*** loop 73 ***
+Average squared error = 0.276015, average error: -0.0282532
+*** loop 74 ***
+Average squared error = 0.275863, average error: -0.0281723
+*** loop 75 ***
+Average squared error = 0.275723, average error: -0.0280874
+*** loop 76 ***
+Average squared error = 0.275545, average error: -0.0279811
+*** loop 77 ***
+Average squared error = 0.275377, average error: -0.0278908
+*** loop 78 ***
+Average squared error = 0.275231, average error: -0.0278026
+*** loop 79 ***
+Average squared error = 0.275087, average error: -0.0277177
+*** loop 80 ***
+Average squared error = 0.274988, average error: -0.0276477
+*** loop 81 ***
+Average squared error = 0.274899, average error: -0.0275888
+*** loop 82 ***
+Average squared error = 0.274697, average error: -0.0274518
+*** loop 83 ***
+Average squared error = 0.274517, average error: -0.0272982
+*** loop 84 ***
+Average squared error = 0.274293, average error: -0.027134
+*** loop 85 ***
+Average squared error = 0.274005, average error: -0.0268709
+*** loop 86 ***
+Average squared error = 0.273686, average error: -0.0265033
+*** loop 87 ***
+Average squared error = 0.273053, average error: -0.0257175
+*** loop 88 ***
+Average squared error = 0.272044, average error: -0.0243798
+*** loop 89 ***
+Average squared error = 0.271037, average error: -0.0231086
+*** loop 90 ***
+Average squared error = 0.270173, average error: -0.0222035
+*** loop 91 ***
+Average squared error = 0.268837, average error: -0.0205596
+*** loop 92 ***
+Average squared error = 0.268364, average error: -0.0192559
+*** loop 93 ***
+Average squared error = 0.267513, average error: -0.0182723
+*** loop 94 ***
+Average squared error = 0.266708, average error: -0.0175116
+*** loop 95 ***
+Average squared error = 0.2659, average error: -0.0167704
+*** loop 96 ***
+Average squared error = 0.265119, average error: -0.0160554
+*** loop 97 ***
+Average squared error = 0.264688, average error: -0.015666
+*** loop 98 ***
+Average squared error = 0.264175, average error: -0.0152502
+*** loop 99 ***
+Average squared error = 0.263741, average error: -0.0148951
+*** loop 100 ***
+Average squared error = 0.263298, average error: -0.0145078
+*** loop 101 ***

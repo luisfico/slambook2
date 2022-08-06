@@ -1,0 +1,24 @@
+COMMENT
+El programa estima la carta de profundidad de la primera image  scene_000   con todas las demas scene_XXX.png
+	la carta se va afianando cada vez que tiene mas 
+
+
+
+
+
+read total 2 files.
+*** loop 1 ***
+(se compara la depth image estimada con la ground truth   /home/lc/env/sb/slambook2/tmp/remode_test_data/test_data/depthmaps/scene_000.depth )
+
+Average squared error = 1.84285, average error: -1.12517      
+estimation returns, saving depth map ...
+done.
+
+
+
+
+
+
+
+
+

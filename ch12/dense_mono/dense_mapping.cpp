@@ -2,6 +2,11 @@
 // RUN $ ./build/dense_mono/dense_mapping /home/lc/env/sb/slambook2/tmp/remode_test_data/test_data
 // too slow   offline    201 loops
 
+/*TODO
+- Build pointcloud3d
+- Using vuzix dataset:prepare extern SFM software to extract localization ground truth from aruco marker 245   pose in : tx, ty, tz, qx, qy, qz, qw
+- Using vuzix dataset:Disable evaludateDepth() or using a depth image groud truth
+*/
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -204,8 +209,9 @@ int main(int argc, char **argv)
     Mat depth(height, width, CV_64F, init_depth);     // 深度图
     Mat depth_cov2(height, width, CV_64F, init_cov2); // 深度图方差
 
-    for (int index = 1; index < 2; index++)
-    //for (int index = 1; index < color_image_files.size(); index++)
+    //------- MainLoop
+    //for (int index = 1; index < 2; index++) //DEBUG: Just 1 loop 
+    for (int index = 1; index < color_image_files.size(); index++)
     {
         cout << "*** loop " << index << " ***" << endl;
         Mat curr = imread(color_image_files[index], 0);
@@ -243,7 +249,10 @@ int main(int argc, char **argv)
     }
     // For debug  -------- map ------------end
 */
-    imwrite("depth.png", depth);
+    imwrite("build/ref_depth.pgm", ref_depth);
+
+    imwrite("build/depth.png", depth);
+    imwrite("build/depth.pgm", depth); //our estimate
     cout << "done." << endl;
 
     return 0;
