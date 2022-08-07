@@ -212,7 +212,8 @@ int main(int argc, char **argv)
     // 第一张图
     Mat ref = imread(color_image_files[0], 0); // gray-scale image
     SE3d pose_ref_TWC = poses_TWC[0];
-    double init_depth = 3.0;                          // 深度初始值
+    double init_depth = 1.4;                          // first depth estimate for dataset /home/lc/env/sb/slambook2/tmp/remode_test_data/test_data/images
+    //double init_depth = 3.0;                          // 深度初始值
     double init_cov2 = 3.0;                           // 方差初始值
     Mat depth(height, width, CV_64F, init_depth);     // 深度图
     Mat depth_cov2(height, width, CV_64F, init_cov2); // 深度图方差
