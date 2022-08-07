@@ -42,32 +42,15 @@ book
 ∗ Please note that this program is not perfect, you can improve it by yourself.
 ***********************************************/
 
-/*
-// ----------------------original dataset--------------------------------------------
+// ------------------------------------------------------------------
 // parameters
 const int boarder = 20;   // 边缘宽度
 const int width = 640;    // 图像宽度
 const int height = 480;   // 图像高度
 const double fx = 481.2f; // 相机内参
-const double fy = 480.0f;
+const double fy = -480.0f;
 const double cx = 319.5f;
 const double cy = 239.5f;
-const int ncc_window_size = 3;                                              // NCC 取的窗口半宽度
-const int ncc_area = (2 * ncc_window_size + 1) * (2 * ncc_window_size + 1); // NCC窗口面积
-const double min_cov = 0.1;                                                 // 收敛判定：最小方差
-const double max_cov = 10;                                                  // 发散判定：最大方差
-*/
-
-// ----------------------vuzix4K dataset--------------------------------------------
-// parameters
-const int IMAGE_DOWNSAMPLE = 6;   //1 is 4K,  2 is 2K, ...    downsample the image to speed up processing
-const int boarder = 20;   // 边缘宽度
-const int width = 3840 / IMAGE_DOWNSAMPLE;    // 图像宽度
-const int height = 2160 / IMAGE_DOWNSAMPLE;   // 图像高度
-const double fx = 3010.533296740733 / IMAGE_DOWNSAMPLE; // 相机内参
-const double fy = 3011.574984666817 / IMAGE_DOWNSAMPLE;
-const double cx = 1936.003231339493 / IMAGE_DOWNSAMPLE;
-const double cy = 1076.590953539443 / IMAGE_DOWNSAMPLE;
 const int ncc_window_size = 3;                                              // NCC 取的窗口半宽度
 const int ncc_area = (2 * ncc_window_size + 1) * (2 * ncc_window_size + 1); // NCC窗口面积
 const double min_cov = 0.1;                                                 // 收敛判定：最小方差
@@ -228,33 +211,27 @@ int main(int argc, char **argv)
 
     // 第一张图
     Mat ref = imread(color_image_files[0], 0); // gray-scale image
-    cv::resize(ref, ref, ref.size() / IMAGE_DOWNSAMPLE);
-            
     SE3d pose_ref_TWC = poses_TWC[0];
-    //double init_depth = 1.4;                          // first depth estimate for dataset /home/lc/env/sb/slambook2/tmp/remode_test_data/test_data/images
-    //double init_cov2 = 3.0;
-    
-    double init_depth = 0.4;                          // first depth estimate for dataset /home/lc/datasets/pxEnvVO/datasetVuzixTool119/hipCenter/CapturesJPG/aSelectEnvironmentFixContinousCapture
-    double init_cov2 = 0.4;
-    
-    //double init_depth = 3.0;                          // 深度初始值     original
+    double init_depth = 3.0;                          // first depth estimate for dataset /home/lc/env/sb/slambook2/tmp/remode_test_data/test_data/images
+    double init_cov2 = 3.0;                           // 方差初始值
+    //double init_depth = 3.0;                          // 深度初始值
     //double init_cov2 = 3.0;                           // 方差初始值
     Mat depth(height, width, CV_64F, init_depth);     // 深度图
     Mat depth_cov2(height, width, CV_64F, init_cov2); // 深度图方差
-/*
+
     //Save depth image!
     double scaleToSaveMtoMM=1000;
     cv::Mat ref_depth_save_MM=ref_depth.clone(); 
     ref_depth_save_MM=ref_depth_save_MM*scaleToSaveMtoMM;
     ref_depth_save_MM.convertTo(ref_depth_save_MM,CV_16UC1); //from CV_64F(double) to CV_16UC1 <0 to 2^16mm=65.536m>  to save depth image in .png
     imwrite("build/depthMM_ref.png", ref_depth_save_MM);
-*/
+
 
         logMap0.open("build/logMapM_ref.csv");
         logMap0 << "//X;Y;Z;color\n";
         logMap0 << "0;0;0;origin\n"; // Intial pose frame camera
     
-/*
+
         // For debug  -------- map ------------init    to save  .txt or .pcd 
         cout << "logMap_ref" << endl;
         //double depthScale0 = scaleConversion/1000; // de mm a m
@@ -279,7 +256,7 @@ int main(int argc, char **argv)
         }
         logMap0.close();
         // For debug  -------- map ------------end
-*/
+
 
     //------- MainLoop
     //for (int index = 1; index < 2; index++) //DEBUG: Just 1 loop 
@@ -288,20 +265,18 @@ int main(int argc, char **argv)
     {
         cout << "*** loop " << index << " ***" << endl;
         Mat curr = imread(color_image_files[index], 0);
-        cv::resize(curr, curr, curr.size() / IMAGE_DOWNSAMPLE);
-
         if (curr.data == nullptr)
             continue;
         SE3d pose_curr_TWC = poses_TWC[index];
         SE3d pose_T_C_R = pose_curr_TWC.inverse() * pose_ref_TWC; // 坐标转换关系： T_C_W * T_W_R = T_C_R
         update(ref, curr, pose_T_C_R, depth, depth_cov2);
-        //evaludateDepth(ref_depth, depth);
+        evaludateDepth(ref_depth, depth);
         //plotDepth(ref_depth, depth);
         //imshow("image", curr);
         //waitKey(1);
 
         //Save depth image!
-        double scaleToSaveMtoMM=1000;
+        //double scaleToSaveMtoMM=1000;
         cv::Mat depth_save_MM=depth.clone()*scaleToSaveMtoMM;
         depth_save_MM.convertTo(depth_save_MM,CV_16UC1); //from CV_64F(double) to CV_16UC1 <0 to 2^16mm=65.536m>  to save depth image in .png
         imwrite("build/depthMM_loop"+std::to_string(index)+".png", depth_save_MM); //our estimate
@@ -356,7 +331,7 @@ bool readDatasetFiles(
     std::vector<SE3d> &poses,
     cv::Mat &ref_depth)
 {
-    ifstream fin(path + "/cameraPoses.txt");
+    ifstream fin(path + "/first_200_frames_traj_over_table_input_sequence.txt");
     if (!fin)
         return false;
 
@@ -378,7 +353,6 @@ bool readDatasetFiles(
     }
     fin.close();
 
-/*
     // load reference depth
     fin.open(path + "/depthmaps/scene_000.depth");
     ref_depth = cv::Mat(height, width, CV_64F);
@@ -391,7 +365,7 @@ bool readDatasetFiles(
             fin >> depth;
             ref_depth.ptr<double>(y)[x] = depth / 100.0;
         }
-*/
+
     return true;
 }
 
