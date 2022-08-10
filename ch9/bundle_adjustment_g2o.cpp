@@ -128,8 +128,8 @@ int main(int argc, char **argv) {
     }
 
     BALProblem bal_problem(argv[1]);
-    bal_problem.Normalize();
-    bal_problem.Perturb(0.1, 0.5, 0.5);
+    //bal_problem.Normalize();
+    //bal_problem.Perturb(0.1, 0.5, 0.5);
     bal_problem.WriteToPLYFile("initial.ply");
     SolveBA(bal_problem);
     bal_problem.WriteToPLYFile("final.ply");
@@ -197,10 +197,16 @@ void SolveBA(BALProblem &bal_problem) {
         auto vertex = vertex_pose_intrinsics[i];
         auto estimate = vertex->estimate();
         estimate.set_to(camera);
+
+        //Debug
+        //std::cout<<"DEBUG :"<<vertex->
+        
     }
     for (int i = 0; i < bal_problem.num_points(); ++i) {
         double *point = points + point_block_size * i;
         auto vertex = vertex_points[i];
         for (int k = 0; k < 3; ++k) point[k] = vertex->estimate()[k];
     }
+
+
 }
