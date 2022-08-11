@@ -2,6 +2,10 @@
            ./build/bundle_adjustment_g2o problem-16-22106-pre_SameCalib.txt  
 */
 
+/*
+TODO: hacer que las instrinsics  focal, distorsion k1 y k2  sean contantes, ya que se esta refinando k1 y k2
+*/
+
 #include <g2o/core/base_vertex.h>
 #include <g2o/core/base_binary_edge.h>
 #include <g2o/core/block_solver.h>
@@ -190,7 +194,7 @@ void SolveBA(BALProblem &bal_problem) {
     }
 
     optimizer.initializeOptimization();
-    optimizer.optimize(2); //default 40 iterations
+    optimizer.optimize(40); //default 40 iterations
 
     // set to bal problem
     for (int i = 0; i < bal_problem.num_cameras(); ++i) {
