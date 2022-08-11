@@ -1,0 +1,140 @@
+inicialmente
+
+c1
+fx 1.4300319432711681e+03
+k1 -7.5572758535864072e-08
+k2 3.2377569465570913e-14
+
+c2
+fx 1.4321374541298685e+03
+k1 -7.3171919892612292e-08
+k2 3.1759419019880947e-14
+
+:
+:
+:
+
+
+
+POST BA  g2o           
+
+parece que tambien optimiza cada intrinsics  fx,cx,cy  de cada camara                 lo hace tambien ceres???
+
+lc@px ~/env/sb/slambook2/ch9 (devBA)$ ./build/bundle_adjustment_g2o problem-16-22106-pre.txt 
+Header: 16 22106 83718iteration= 0       chi2= 532898.498057     time= 16.558    cumTime= 16.558         edges= 83718    schur= 1        lambda= 38302.151169      levenbergIter= 1
+iteration= 1     chi2= 481169.244365     time= 14.3482   cumTime= 30.9062        edges= 83718    schur= 1        lambda= 12767.383723    levenbergIter= 1
+DEBUG *camera: 0 : -0.0168923
+DEBUG estimate.translation :0 :  
+0.759382
+-0.265899
+ -1.62375
+DEBUG estimate.focal       :0 : 1430.03
+DEBUG estimate.k1          :0 : 0.0357944
+DEBUG estimate.k2          :0 : -0.0455213
+DEBUG *camera: 1 : 0.0153898
+DEBUG estimate.translation :1 :   -1.02167
+-0.0478075
+  -1.52616
+DEBUG estimate.focal       :1 : 1432.14
+DEBUG estimate.k1          :1 : 0.0355631
+DEBUG estimate.k2          :1 : -0.0454715
+DEBUG *camera: 2 : -0.30746
+DEBUG estimate.translation :2 :  8.51019
+ 6.74563
+-3.56278
+DEBUG estimate.focal       :2 : 1572.05
+DEBUG estimate.k1          :2 : 0.0278649
+DEBUG estimate.k2          :2 : -0.0287746
+DEBUG *camera: 3 : -0.506169
+DEBUG estimate.translation :3 :  9.07738
+ 5.96836
+-7.65846
+DEBUG estimate.focal       :3 : 1582.53
+DEBUG estimate.k1          :3 : 0.0389618
+DEBUG estimate.k2          :3 : -0.0271511
+DEBUG *camera: 4 : -0.540784
+DEBUG estimate.translation :4 :  0.52655
+-3.98888
+0.149967
+DEBUG estimate.focal       :4 : 809.503
+DEBUG estimate.k1          :4 : -0.000244087
+DEBUG estimate.k2          :4 : -0.000532052
+DEBUG *camera: 5 : -0.460836
+DEBUG estimate.translation :5 :   6.69771
+-0.572852
+ -2.60275
+DEBUG estimate.focal       :5 : 1626.49
+DEBUG estimate.k1          :5 : 0.0793125
+DEBUG estimate.k2          :5 : -0.0752168
+DEBUG *camera: 6 : -0.0838614
+DEBUG estimate.translation :6 :  6.26596
+ 2.39271
+-5.12887
+DEBUG estimate.focal       :6 : 1840.49
+DEBUG estimate.k1          :6 : 0.015401
+DEBUG estimate.k2          :6 : -0.00917005
+DEBUG *camera: 7 : 0.0171538
+DEBUG estimate.translation :7 :   2.29917
+  1.13859
+-0.891485
+DEBUG estimate.focal       :7 : 1380.37
+DEBUG estimate.k1          :7 : 0.0330272
+DEBUG estimate.k2          :7 : -0.0320947
+DEBUG *camera: 8 : -0.304677
+DEBUG estimate.translation :8 :  7.56527
+ 5.68077
+-2.74298
+DEBUG estimate.focal       :8 : 1265.87
+DEBUG estimate.k1          :8 : 0.035299
+DEBUG estimate.k2          :8 : -0.0333267
+DEBUG *camera: 9 : -0.248869
+DEBUG estimate.translation :9 :  8.44625
+  7.6245
+-4.10769
+DEBUG estimate.focal       :9 : 1300.64
+DEBUG estimate.k1          :9 : 0.0299331
+DEBUG estimate.k2          :9 : -0.0166112
+DEBUG *camera: 10 : 0.0729857
+DEBUG estimate.translation :10 :  0.596087
+-0.126483
+ -1.09438
+DEBUG estimate.focal       :10 : 1614.58
+DEBUG estimate.k1          :10 : -0.00255675
+DEBUG estimate.k2          :10 : 0.00197829
+DEBUG *camera: 11 : -0.559382
+DEBUG estimate.translation :11 : -0.0126974
+  -1.23324
+  -1.67511
+DEBUG estimate.focal       :11 : 1300.51
+DEBUG estimate.k1          :11 : 0.0422912
+DEBUG estimate.k2          :11 : -0.0431838
+DEBUG *camera: 12 : -0.0961102
+DEBUG estimate.translation :12 :   4.20157
+  2.93326
+-0.859329
+DEBUG estimate.focal       :12 : 1614.87
+DEBUG estimate.k1          :12 : 0.0270826
+DEBUG estimate.k2          :12 : -0.027469
+DEBUG *camera: 13 : -0.249746
+DEBUG estimate.translation :13 :  6.00894
+0.523789
+ -3.4702
+DEBUG estimate.focal       :13 : 1321.45
+DEBUG estimate.k1          :13 : 0.0711399
+DEBUG estimate.k2          :13 : -0.067044
+DEBUG *camera: 14 : -0.520157
+DEBUG estimate.translation :14 :   6.03186
+-0.626051
+ -2.40001
+DEBUG estimate.focal       :14 : 1563.92
+DEBUG estimate.k1          :14 : 0.0652675
+DEBUG estimate.k2          :14 : -0.0572908
+DEBUG *camera: 15 : 0.0513771
+DEBUG estimate.translation :15 :   0.336077
+-0.0455185
+  -1.32483
+DEBUG estimate.focal       :15 : 1918.25
+DEBUG estimate.k1          :15 : -0.00333664
+DEBUG estimate.k2          :15 : 0.00208179
+
+

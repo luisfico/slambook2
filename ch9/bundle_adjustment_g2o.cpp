@@ -1,4 +1,5 @@
 /* Run:    ./build/bundle_adjustment_g2o problem-16-22106-pre.txt 
+           ./build/bundle_adjustment_g2o problem-16-22106-pre_SameCalib.txt  
 */
 
 #include <g2o/core/base_vertex.h>
@@ -189,7 +190,7 @@ void SolveBA(BALProblem &bal_problem) {
     }
 
     optimizer.initializeOptimization();
-    optimizer.optimize(40);
+    optimizer.optimize(2); //default 40 iterations
 
     // set to bal problem
     for (int i = 0; i < bal_problem.num_cameras(); ++i) {
@@ -200,6 +201,12 @@ void SolveBA(BALProblem &bal_problem) {
 
         //Debug
         //std::cout<<"DEBUG :"<<vertex->
+        std::cout<<"DEBUG *camera: "<<i<<" : "<<*camera<<std::endl;
+        //std::cout<<"DEBUG  camera pointer:"<< camera<<std::endl;
+        std::cout<<"DEBUG estimate.translation : \n"<<i<<" : "<<estimate.translation<<std::endl;
+        std::cout<<"DEBUG estimate.focal       :"<<i<<" : "<<estimate.focal<<std::endl;
+        std::cout<<"DEBUG estimate.k1          :"<<i<<" : "<<estimate.k1<<std::endl;
+        std::cout<<"DEBUG estimate.k2          :"<<i<<" : "<<estimate.k2<<std::endl;
         
     }
     for (int i = 0; i < bal_problem.num_points(); ++i) {
