@@ -211,15 +211,28 @@ void SolveBA(BALProblem &bal_problem) {
     vector<VertexPoint *> vertex_points;
     //----Vertex Pose cam 6x1
     for (int i = 0; i < bal_problem.num_cameras(); ++i) { 
-    //for (int i = 2; i < bal_problem.num_cameras(); ++i) { //not refine 1st,2nd camera pose i=0, i=1
-        VertexPoseAndIntrinsics *v = new VertexPoseAndIntrinsics();
-        double *camera = cameras + camera_block_size * i;
-        v->setId(i);
-        v->setEstimate(PoseAndIntrinsics(camera));
-        if(i==0 ||i==1)
+    //for (int i = 2; i < bal_problem.num_cameras(); ++i) { KO segFault //not refine 1st,2nd camera pose i=0, i=1
+        if(i==0 ||i==1) //not refine 1st,2nd camera pose i=0, i=1
+        {
+            VertexPoseAndIntrinsics *v = new VertexPoseAndIntrinsics();
+            double *camera = cameras + camera_block_size * i;
+            v->setId(i);
+            v->setEstimate(PoseAndIntrinsics(camera));
             v->setFixed(true); // //not refine 1st,2nd camera pose i=0, i=1
-        optimizer.addVertex(v);
-        vertex_pose_intrinsics.push_back(v);
+            optimizer.addVertex(v);
+            vertex_pose_intrinsics.push_back(v);
+        }else
+        {
+            VertexPoseAndIntrinsics *v = new VertexPoseAndIntrinsics();
+            double *camera = cameras + camera_block_size * i;
+            v->setId(i);
+            v->setEstimate(PoseAndIntrinsics(camera));
+            //    v->setFixed(true); // //not refine 1st,2nd camera pose i=0, i=1
+            optimizer.addVertex(v);
+            vertex_pose_intrinsics.push_back(v);
+        }
+
+        
     }
     //----Vertex Pose map point 3x1
     for (int i = 0; i < bal_problem.num_points(); ++i) {
@@ -245,7 +258,8 @@ void SolveBA(BALProblem &bal_problem) {
     }
 
     optimizer.initializeOptimization();
-    optimizer.optimize(3); //default 40 iterations
+    optimizer.optimize(40); //default 40 iterations
+    //optimizer.optimize(3); //default 3 iterations for fast debug
 
     // set to bal problem
     for (int i = 0; i < bal_problem.num_cameras(); ++i) {
