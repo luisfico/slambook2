@@ -215,10 +215,9 @@ void SolveBA(BALProblem &bal_problem) {
         VertexPoseAndIntrinsics *v = new VertexPoseAndIntrinsics();
         double *camera = cameras + camera_block_size * i;
         v->setId(i);
+        v->setEstimate(PoseAndIntrinsics(camera));
         if(i==0 ||i==1)
             v->setFixed(true); // //not refine 1st,2nd camera pose i=0, i=1
-        else
-            v->setEstimate(PoseAndIntrinsics(camera));
         optimizer.addVertex(v);
         vertex_pose_intrinsics.push_back(v);
     }
