@@ -264,7 +264,7 @@ public:
   virtual bool write(ostream &out) const override {}
 };
 
-class EdgeProjection : public g2o::BaseUnaryEdge<2, Eigen::Vector2d, VertexPose> {
+class EdgeProjectionRefineCameraAndPoint : public g2o::BaseUnaryEdge<2, Eigen::Vector2d, VertexPose> {
 public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
 

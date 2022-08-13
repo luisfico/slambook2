@@ -1,0 +1,183 @@
+inicialmente
+ ./build/mybundle_adjustment_g2o problem-16-22106-pre_SameCalib.txt 
+para todas las camaras la misma calib      y cx y cy?
+c1
+fx 1.4300e+03
+k1 0
+k2 0
+
+
+OK no se optimizo calib
+
+
+
+lc@px ~/env/sb/slambook2/ch9 (devBA)$ ./build/mybundle_adjustment_g2o problem-16-22106-pre_SameCalib.txt  
+Header: 16 22106 83718iteration= 0	 chi2= 6319319.737753	 time= 14.0023	 cumTime= 14.0023	 edges= 83718	 schur= 1	 lambda= 17813.095167	 levenbergIter= 1
+iteration= 1	 chi2= 3865137.866006	 time= 14.1375	 cumTime= 28.1398	 edges= 83718	 schur= 1	 lambda= 5937.698389	 levenbergIter= 1
+iteration= 2	 chi2= 2274249.587254	 time= 13.9717	 cumTime= 42.1115	 edges= 83718	 schur= 1	 lambda= 1979.232796	 levenbergIter= 1
+iteration= 3	 chi2= 1808250.649820	 time= 13.8398	 cumTime= 55.9513	 edges= 83718	 schur= 1	 lambda= 659.744265	 levenbergIter= 1
+iteration= 4	 chi2= 1582698.758707	 time= 14.4806	 cumTime= 70.432	 edges= 83718	 schur= 1	 lambda= 219.914755	 levenbergIter= 1
+iteration= 5	 chi2= 1470180.806374	 time= 13.7092	 cumTime= 84.1412	 edges= 83718	 schur= 1	 lambda= 73.304918	 levenbergIter= 1
+iteration= 6	 chi2= 1395916.119537	 time= 13.3264	 cumTime= 97.4676	 edges= 83718	 schur= 1	 lambda= 24.434973	 levenbergIter= 1
+iteration= 7	 chi2= 1322712.853462	 time= 13.4689	 cumTime= 110.936	 edges= 83718	 schur= 1	 lambda= 8.144991	 levenbergIter= 1
+iteration= 8	 chi2= 1235329.840857	 time= 13.4673	 cumTime= 124.404	 edges= 83718	 schur= 1	 lambda= 2.714997	 levenbergIter= 1
+iteration= 9	 chi2= 1139589.629294	 time= 16.0703	 cumTime= 140.474	 edges= 83718	 schur= 1	 lambda= 0.904999	 levenbergIter= 1
+iteration= 10	 chi2= 1060100.477247	 time= 14.1966	 cumTime= 154.671	 edges= 83718	 schur= 1	 lambda= 0.301666	 levenbergIter= 1
+iteration= 11	 chi2= 1002362.640486	 time= 13.3601	 cumTime= 168.031	 edges= 83718	 schur= 1	 lambda= 0.100555	 levenbergIter= 1
+iteration= 12	 chi2= 961032.876574	 time= 13.7757	 cumTime= 181.806	 edges= 83718	 schur= 1	 lambda= 0.033518	 levenbergIter= 1
+iteration= 13	 chi2= 933897.761863	 time= 14.2606	 cumTime= 196.067	 edges= 83718	 schur= 1	 lambda= 0.011173	 levenbergIter= 1
+iteration= 14	 chi2= 924401.505727	 time= 13.9543	 cumTime= 210.021	 edges= 83718	 schur= 1	 lambda= 0.003724	 levenbergIter= 1
+iteration= 15	 chi2= 920161.897967	 time= 14.5815	 cumTime= 224.603	 edges= 83718	 schur= 1	 lambda= 0.001241	 levenbergIter= 1
+iteration= 16	 chi2= 917439.302573	 time= 14.7499	 cumTime= 239.353	 edges= 83718	 schur= 1	 lambda= 0.000414	 levenbergIter= 1
+iteration= 17	 chi2= 916391.481175	 time= 13.6341	 cumTime= 252.987	 edges= 83718	 schur= 1	 lambda= 0.000276	 levenbergIter= 1
+iteration= 18	 chi2= 914887.033286	 time= 13.34	 cumTime= 266.327	 edges= 83718	 schur= 1	 lambda= 0.000183	 levenbergIter= 1
+iteration= 19	 chi2= 914441.661492	 time= 13.3249	 cumTime= 279.652	 edges= 83718	 schur= 1	 lambda= 0.000122	 levenbergIter= 1
+iteration= 20	 chi2= 912705.700860	 time= 15.5638	 cumTime= 295.216	 edges= 83718	 schur= 1	 lambda= 0.000081	 levenbergIter= 2
+iteration= 21	 chi2= 912444.905304	 time= 14.9823	 cumTime= 310.198	 edges= 83718	 schur= 1	 lambda= 0.000109	 levenbergIter= 2
+iteration= 22	 chi2= 911636.562635	 time= 14.7886	 cumTime= 324.986	 edges= 83718	 schur= 1	 lambda= 0.000072	 levenbergIter= 2
+iteration= 23	 chi2= 911089.245189	 time= 17.0684	 cumTime= 342.055	 edges= 83718	 schur= 1	 lambda= 0.000193	 levenbergIter= 3
+iteration= 24	 chi2= 911069.662415	 time= 14.7259	 cumTime= 356.781	 edges= 83718	 schur= 1	 lambda= 0.000129	 levenbergIter= 1
+iteration= 25	 chi2= 910646.796226	 time= 15.7975	 cumTime= 372.578	 edges= 83718	 schur= 1	 lambda= 0.000086	 levenbergIter= 2
+iteration= 26	 chi2= 910371.875077	 time= 17.2646	 cumTime= 389.843	 edges= 83718	 schur= 1	 lambda= 0.000229	 levenbergIter= 3
+iteration= 27	 chi2= 910350.034245	 time= 14.1682	 cumTime= 404.011	 edges= 83718	 schur= 1	 lambda= 0.000153	 levenbergIter= 1
+iteration= 28	 chi2= 910180.395993	 time= 16.3076	 cumTime= 420.319	 edges= 83718	 schur= 1	 lambda= 0.000203	 levenbergIter= 2
+iteration= 29	 chi2= 910122.151261	 time= 14.1832	 cumTime= 434.502	 edges= 83718	 schur= 1	 lambda= 0.000136	 levenbergIter= 1
+iteration= 30	 chi2= 909824.852816	 time= 17.5489	 cumTime= 452.051	 edges= 83718	 schur= 1	 lambda= 0.000362	 levenbergIter= 3
+iteration= 31	 chi2= 909774.388891	 time= 14.1497	 cumTime= 466.2	 edges= 83718	 schur= 1	 lambda= 0.000241	 levenbergIter= 1
+iteration= 32	 chi2= 909717.249677	 time= 15.7131	 cumTime= 481.914	 edges= 83718	 schur= 1	 lambda= 0.000321	 levenbergIter= 2
+iteration= 33	 chi2= 909632.767550	 time= 14.2364	 cumTime= 496.15	 edges= 83718	 schur= 1	 lambda= 0.000214	 levenbergIter= 1
+iteration= 34	 chi2= 909473.737729	 time= 17.7346	 cumTime= 513.885	 edges= 83718	 schur= 1	 lambda= 0.000571	 levenbergIter= 3
+iteration= 35	 chi2= 909462.663180	 time= 14.8503	 cumTime= 528.735	 edges= 83718	 schur= 1	 lambda= 0.000381	 levenbergIter= 1
+iteration= 36	 chi2= 909451.285015	 time= 14.4996	 cumTime= 543.234	 edges= 83718	 schur= 1	 lambda= 0.000254	 levenbergIter= 1
+iteration= 37	 chi2= 909318.348611	 time= 17.013	 cumTime= 560.248	 edges= 83718	 schur= 1	 lambda= 0.000677	 levenbergIter= 3
+iteration= 38	 chi2= 909270.958644	 time= 16.5822	 cumTime= 576.83	 edges= 83718	 schur= 1	 lambda= 0.001806	 levenbergIter= 3
+iteration= 39	 chi2= 909242.030526	 time= 14.3944	 cumTime= 591.224	 edges= 83718	 schur= 1	 lambda= 0.000602	 levenbergIter= 1
+DEBUG *camera: 0 : 0.163756
+DEBUG estimate.translation : 
+0 : -2.6152
+ -12.02
+26.7569
+DEBUG estimate.focal       :0 : 1430.03
+DEBUG estimate.k1          :0 : 0
+DEBUG estimate.k2          :0 : 0
+DEBUG *camera: 1 : 0.173665
+DEBUG estimate.translation : 
+1 : -11.9175
+ -10.405
+ 24.9444
+DEBUG estimate.focal       :1 : 1430.03
+DEBUG estimate.k1          :1 : 0
+DEBUG estimate.k2          :1 : 0
+DEBUG *camera: 2 : -0.192928
+DEBUG estimate.translation : 
+2 :  11.7739
+0.557238
+ 27.5978
+DEBUG estimate.focal       :2 : 1430.03
+DEBUG estimate.k1          :2 : 0
+DEBUG estimate.k2          :2 : 0
+DEBUG *camera: 3 : -0.419833
+DEBUG estimate.translation : 
+3 : 15.1048
+ 7.2187
+25.0245
+DEBUG estimate.focal       :3 : 1430.03
+DEBUG estimate.k1          :3 : 0
+DEBUG estimate.k2          :3 : 0
+DEBUG *camera: 4 : -0.208783
+DEBUG estimate.translation : 
+4 : -3.52179
+ 4.62979
+ 26.0519
+DEBUG estimate.focal       :4 : 1430.03
+DEBUG estimate.k1          :4 : 0
+DEBUG estimate.k2          :4 : 0
+DEBUG *camera: 5 : -0.339692
+DEBUG estimate.translation : 
+5 : -5.74325
+ 2.55524
+  29.086
+DEBUG estimate.focal       :5 : 1430.03
+DEBUG estimate.k1          :5 : 0
+DEBUG estimate.k2          :5 : 0
+DEBUG *camera: 6 : 0.149243
+DEBUG estimate.translation : 
+6 :  12.2689
+-9.66767
+ 25.8549
+DEBUG estimate.focal       :6 : 1430.03
+DEBUG estimate.k1          :6 : 0
+DEBUG estimate.k2          :6 : 0
+DEBUG *camera: 7 : 0.18109
+DEBUG estimate.translation : 
+7 :  3.85568
+-11.9498
+ 26.5579
+DEBUG estimate.focal       :7 : 1430.03
+DEBUG estimate.k1          :7 : 0
+DEBUG estimate.k2          :7 : 0
+DEBUG *camera: 8 : -0.192476
+DEBUG estimate.translation : 
+8 :   9.27489
+0.0831419
+  27.5461
+DEBUG estimate.focal       :8 : 1430.03
+DEBUG estimate.k1          :8 : 0
+DEBUG estimate.k2          :8 : 0
+DEBUG *camera: 9 : -0.162168
+DEBUG estimate.translation : 
+9 : 14.8546
+0.68376
+25.4918
+DEBUG estimate.focal       :9 : 1430.03
+DEBUG estimate.k1          :9 : 0
+DEBUG estimate.k2          :9 : 0
+DEBUG *camera: 10 : 0.286644
+DEBUG estimate.translation : 
+10 : 0.0566392
+ -15.3743
+  25.7389
+DEBUG estimate.focal       :10 : 1430.03
+DEBUG estimate.k1          :10 : 0
+DEBUG estimate.k2          :10 : 0
+DEBUG *camera: 11 : -0.391915
+DEBUG estimate.translation : 
+11 : -6.39734
+ 3.74566
+ 27.9822
+DEBUG estimate.focal       :11 : 1430.03
+DEBUG estimate.k1          :11 : 0
+DEBUG estimate.k2          :11 : 0
+DEBUG *camera: 12 : 0.0756238
+DEBUG estimate.translation : 
+12 :  7.24322
+-8.32054
+ 27.8671
+DEBUG estimate.focal       :12 : 1430.03
+DEBUG estimate.k1          :12 : 0
+DEBUG estimate.k2          :12 : 0
+DEBUG *camera: 13 : -0.0739325
+DEBUG estimate.translation : 
+13 : -0.545559
+  -5.2694
+  28.2822
+DEBUG estimate.focal       :13 : 1430.03
+DEBUG estimate.k1          :13 : 0
+DEBUG estimate.k2          :13 : 0
+DEBUG *camera: 14 : -0.353143
+DEBUG estimate.translation : 
+14 : -2.94323
+ 2.83084
+ 29.4937
+DEBUG estimate.focal       :14 : 1430.03
+DEBUG estimate.k1          :14 : 0
+DEBUG estimate.k2          :14 : 0
+DEBUG *camera: 15 : 0.292631
+DEBUG estimate.translation : 
+15 : -1.26921
+-15.7049
+ 26.0048
+DEBUG estimate.focal       :15 : 1430.03
+DEBUG estimate.k1          :15 : 0
+DEBUG estimate.k2          :15 : 0
+

@@ -26,3 +26,15 @@ add_executable(bundle_adjustment_g2o bundle_adjustment_g2o.cpp)
 
 target_link_libraries(bundle_adjustment_ceres ${CERES_LIBRARIES} bal_common)
 target_link_libraries(bundle_adjustment_g2o ${G2O_LIBS} bal_common)
+
+
+
+
+add_executable(mybundle_adjustment_g2o_notRefineCalib mybundle_adjustment_g2o_notRefineCalib.cpp)
+target_link_libraries(mybundle_adjustment_g2o_notRefineCalib ${G2O_LIBS} bal_common)
+
+add_executable(mybundle_adjustment_g2o mybundle_adjustment_g2o.cpp)
+target_link_libraries(mybundle_adjustment_g2o ${G2O_LIBS} bal_common)
+
+
+
