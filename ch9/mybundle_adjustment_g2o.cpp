@@ -3,9 +3,10 @@
 */
 
 /*
-TODO:   hacer que poscam0 sea origen,fijo  y que sus observaciones se vuelvan unaryEdges
-        hacer que poscamX(ejm cam1) sea fijo y que sus observaciones se vuelvan unaryEdges (la real posCam0 y posCamX son dadas por un aruco - recover scale)
-
+TODO:   adapt to SFM VO mono,   recover pose cam1,2 form aruco marker (init scale)
+nonRigidRegistration: 
+    High contraint (BaseBinaryEdge PointXTarget-PointYTarget)
+    low  constraint(BaseBinaryEdge PointXTarget-PointZSource)  
 */
 
 #include <g2o/core/base_vertex.h>
@@ -68,9 +69,9 @@ public:
     virtual void oplusImpl(const double *update) override {
         _estimate.rotation = SO3d::exp(Vector3d(update[0], update[1], update[2])) * _estimate.rotation;
         _estimate.translation += Vector3d(update[3], update[4], update[5]);
-        //_estimate.focal += update[6]; // not optimize
-        //_estimate.k1 += update[7];
-        //_estimate.k2 += update[8];
+        _estimate.focal += update[6]; // DISABLE TO not optimize
+        _estimate.k1 += update[7];// DISABLE TO not optimize
+        _estimate.k2 += update[8];// DISABLE TO not optimize
     }
 
     /// 根据估计值投影一个点
