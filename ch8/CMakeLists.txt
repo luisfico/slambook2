@@ -9,16 +9,18 @@ find_package(OpenCV 4 REQUIRED)
 find_package(Sophus REQUIRED)
 find_package(Pangolin REQUIRED)
 
+find_package(fmt)
+include_directories(fmt)
+
 include_directories(
         ${OpenCV_INCLUDE_DIRS}
-        ${G2O_INCLUDE_DIRS}
         ${Sophus_INCLUDE_DIRS}
         "/usr/include/eigen3/"
         ${Pangolin_INCLUDE_DIRS}
 )
 
 add_executable(optical_flow optical_flow.cpp)
-target_link_libraries(optical_flow ${OpenCV_LIBS})
+target_link_libraries(optical_flow ${OpenCV_LIBS} fmt::fmt)
 
 add_executable(direct_method direct_method.cpp)
-target_link_libraries(direct_method ${OpenCV_LIBS} ${Pangolin_LIBRARIES})
+target_link_libraries(direct_method ${OpenCV_LIBS} ${Pangolin_LIBRARIES} fmt::fmt)
