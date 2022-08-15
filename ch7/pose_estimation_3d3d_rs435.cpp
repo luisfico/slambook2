@@ -1,6 +1,6 @@
 /*
 RUN
-./build/pose_estimation_3d3d 1.png 2.png 1_depth.png 2_depth.png
+./build/pose_estimation_3d3d_rs435 1.png 2.png 1_depth.png 2_depth.png
 
 
 
@@ -9,14 +9,15 @@ Test move camera with aruco as pose ground truth  (scene fixe)
   /6.png            origin
   /109.png  aprox traslation 30cm rot 30deg
  RUN
-./build/pose_estimation_3d3d /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/6.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/109.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/DepthImgAligned/6.pgm /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/DepthImgAligned/109.pgm
+./build/pose_estimation_3d3d_rs435 /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/6.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/109.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/DepthImgAligned/6.pgm /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/DepthImgAligned/109.pgm
   RESULT:
-  With this challenged test(few features) the best methos was the ICP
-  30cm : aprox real translation
-  34cm : pose3d3d ICP using post matching features (close form method via SVD-linear optimization )
-  45cm : pose3d3d BA  using 10 iterations (non linear optimization)
-  57cm : pose3d2d solvepnp3d2d, BA gauss-neuton(10 iterations) or BA g2o(10 iterations)
-
+  With this challenged test(few features) the best method was .. pose3d2d
+  30cm  : aprox real translation
+  28cm  : pose3d2d solvepnp3d2d, BA gauss-neuton(10 iterations) or BA g2o(10 iterations)
+  54cm  : pose3d3d ICP using post matching features (close form method via SVD-linear optimization )
+  23.8cm: pose3d3d BA  using 10 iterations (non linear optimization)
+  25 cm:  ICP+fundamentalmatrix   and  pose3d3d BA  using 10 iterations (non linear optimization) + fundamental filter
+  
 TODO: how to make BA of rgbd data, refine clouds with each iteration?
 */
 #include <iostream>
@@ -139,6 +140,7 @@ int main(int argc, char **argv)
   // Mat K = (Mat_<double>(3, 3) << 520.9, 0, 325.1, 0, 521.0, 249.7, 0, 0, 1);
   Mat K = (Mat_<double>(3, 3) << 1397.61133, 0, 976.10999, 0, 1395.06567, 532.28210, 0, 0, 1); // calib Realsense D435i resolution 1920x1080
 
+  vector<Point3f> pts1init, pts2init;
   vector<Point3f> pts1, pts2;
 
   // Debug matching
@@ -157,15 +159,14 @@ int main(int argc, char **argv)
     Point2d p2 = pixel2cam(keypoints_2[m.trainIdx].pt, K);
     float dd1 = float(d1) / 1000.0;
     float dd2 = float(d2) / 1000.0;
-    pts1.push_back(Point3f(p1.x * dd1, p1.y * dd1, dd1));
-    pts2.push_back(Point3f(p2.x * dd2, p2.y * dd2, dd2));
+    pts1init.push_back(Point3f(p1.x * dd1, p1.y * dd1, dd1));
+    pts2init.push_back(Point3f(p2.x * dd2, p2.y * dd2, dd2));
 
     // Debug matching
     auto pt_src = keypoints_1[m.queryIdx].pt;
     auto pt_dst = keypoints_2[m.trainIdx].pt;
     src.push_back(pt_src);
     dst.push_back(pt_dst);
-
     cv::line(matchingImages, pt_src, pt_dst + Point2f(0, img_1.rows), Scalar(0, 0, 255), 2);
   }
   cv::Mat matchingImagesShow;
@@ -183,6 +184,18 @@ int main(int argc, char **argv)
   {
     if (maskOutFundamentalmatrixFilter[k])
     {
+      ushort d1 = depth1.ptr<unsigned short>(int(src[k].y))[int(src[k].x)];
+      ushort d2 = depth2.ptr<unsigned short>(int(dst[k].y))[int(dst[k].x)];
+      if (d1 == 0 || d2 == 0) // bad depth
+        continue;
+      Point2d p1 = pixel2cam(src[k], K);
+      Point2d p2 = pixel2cam(dst[k], K);
+      float dd1 = float(d1) / 1000.0;
+      float dd2 = float(d2) / 1000.0;
+      pts1.push_back(Point3f(p1.x * dd1, p1.y * dd1, dd1));
+      pts2.push_back(Point3f(p2.x * dd2, p2.y * dd2, dd2));
+      
+    
       cv::line(matchingImages2, src[k], dst[k] + Point2f(0, img_1.rows), Scalar(0, 0, 255), 2);
     }
   }
@@ -198,6 +211,8 @@ int main(int argc, char **argv)
 
   cout << "3d-3d pairs: " << pts1.size() << endl;
   Mat R, t;
+
+  //pts1=pts1init; pts2=pts2init;   //using just 1st filter, not fundamental matrix filter
   pose_estimation_3d3d(pts1, pts2, R, t);
   cout << "Comparison method1: ICP via SVD results: " << endl;
   cout << "R = " << R << endl;
@@ -207,6 +222,7 @@ int main(int argc, char **argv)
 
   cout << "Comparison method2: calling BA(bundle adjustment for 10 iterations)" << endl;
 
+  bundleAdjustment(pts1, pts2, R, t);
   bundleAdjustment(pts1, pts2, R, t);
 
   cout << "Checking points pts1 pt2 are aligned post BA" << endl;
