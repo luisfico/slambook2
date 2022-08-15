@@ -48,3 +48,11 @@ add_executable(pose_estimation_3d3d pose_estimation_3d3d.cpp)
 target_link_libraries(pose_estimation_3d3d
         ${G2O_LIBS}
         ${OpenCV_LIBS})
+
+
+add_executable(pose_estimation_3d3d_rs435 pose_estimation_3d3d_rs435.cpp)
+target_link_libraries(pose_estimation_3d3d_rs435
+        ${G2O_LIBS}
+        ${OpenCV_LIBS})
+
+        
