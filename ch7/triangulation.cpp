@@ -1,3 +1,7 @@
+/*
+RUN
+./build/triangulation 1.png 2.png
+*/
 #include <iostream>
 #include <opencv2/opencv.hpp>
 // #include "extra.h" // used in opencv2

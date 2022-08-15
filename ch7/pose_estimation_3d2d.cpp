@@ -1,3 +1,7 @@
+/*
+RUN
+./build/pose_estimation_3d2d 1.png 2.png 1_depth.png
+*/
 #include <iostream>
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -46,8 +50,8 @@ void bundleAdjustmentGaussNewton(
 );
 
 int main(int argc, char **argv) {
-  if (argc != 5) {
-    cout << "usage: pose_estimation_3d2d img1 img2 depth1 depth2" << endl;
+  if (argc != 4) {
+    cout << "usage: pose_estimation_3d2d img1 img2 depth1" << endl;
     return 1;
   }
   //-- 读取图像
