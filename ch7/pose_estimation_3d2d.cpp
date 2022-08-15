@@ -1,6 +1,13 @@
 /*
 RUN
 ./build/pose_estimation_3d2d 1.png 2.png 1_depth.png
+
+Test move camera with aruco as pose ground truth  (scene fixe)
+  /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg
+  /6.png            origin
+  /109.png  aprox traslation 30cm rot 30deg
+RUN
+  ./build/pose_estimation_3d2d /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/6.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/109.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/DepthImgAligned/6.pgm
 */
 #include <iostream>
 #include <opencv2/core/core.hpp>
@@ -66,7 +73,9 @@ int main(int argc, char **argv) {
 
   // 建立3D点
   Mat d1 = imread(argv[3], cv::IMREAD_UNCHANGED);       // 深度图为16位无符号数，单通道图像
-  Mat K = (Mat_<double>(3, 3) << 520.9, 0, 325.1, 0, 521.0, 249.7, 0, 0, 1);
+  //Mat K = (Mat_<double>(3, 3) << 520.9, 0, 325.1, 0, 521.0, 249.7, 0, 0, 1); //original example
+  Mat K = (Mat_<double>(3, 3) << 1397.61133, 0, 976.10999, 0, 1395.06567, 532.28210, 0, 0, 1);  // calib Realsense D435i resolution 1920x1080
+		
   vector<Point3f> pts_3d;
   vector<Point2f> pts_2d;
   for (DMatch m:matches) {

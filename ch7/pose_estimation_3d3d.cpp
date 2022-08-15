@@ -1,6 +1,23 @@
 /*
 RUN
 ./build/pose_estimation_3d3d 1.png 2.png 1_depth.png 2_depth.png
+
+
+
+Test move camera with aruco as pose ground truth  (scene fixe)
+  /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg
+  /6.png            origin
+  /109.png  aprox traslation 30cm rot 30deg
+ RUN 
+./build/pose_estimation_3d3d /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/6.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/MonoImg/109.png /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/DepthImgAligned/6.pgm /home/lc/datasets/pxEnvVO/datasetRealsenseD435iTool76/datamarkerDist50cm_Mov30cmRot30deg/DepthImgAligned/109.pgm
+  RESULT:
+  With this challenged test(few features) the best methos was the ICP
+  30cm : aprox real translation 
+  34cm : pose3d3d ICP using post matching features (close form method via SVD-linear optimization )
+  45cm : pose3d3d BA  using 10 iterations (non linear optimization)
+  57cm : pose3d2d solvepnp3d2d, BA gauss-neuton(10 iterations) or BA g2o(10 iterations)
+
+TODO: how to make BA of rgbd data, refine clouds with each iteration?
 */
 #include <iostream>
 #include <opencv2/core/core.hpp>
@@ -129,16 +146,17 @@ int main(int argc, char **argv) {
   cout << "3d-3d pairs: " << pts1.size() << endl;
   Mat R, t;
   pose_estimation_3d3d(pts1, pts2, R, t);
-  cout << "ICP via SVD results: " << endl;
+  cout << "Comparison method1: ICP via SVD results: " << endl;
   cout << "R = " << R << endl;
   cout << "t = " << t << endl;
   cout << "R_inv = " << R.t() << endl;
   cout << "t_inv = " << -R.t() * t << endl;
 
-  cout << "calling bundle adjustment" << endl;
+  cout << "Comparison method2: calling BA(bundle adjustment for 10 iterations)" << endl;
 
   bundleAdjustment(pts1, pts2, R, t);
-
+  
+  cout << "Checking points pts1 pt2 are aligned post BA" << endl;
   // verify p1 = R * p2 + t
   for (int i = 0; i < 5; i++) {
     cout << "p1 = " << pts1[i] << endl;
