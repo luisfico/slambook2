@@ -19,38 +19,26 @@ RUN
 using namespace std;
 using namespace cv;
 
-void find_feature_matches(
-  const Mat &img_1, const Mat &img_2,
-  std::vector<KeyPoint> &keypoints_1,
-  std::vector<KeyPoint> &keypoints_2,
-  std::vector<DMatch> &matches);
-
-// 像素坐标转相机归一化坐标
-Point2d pixel2cam(const Point2d &p, const Mat &K);
 
 
+class VisualOdometry
+{
+private:
+  /* data */
+public:
+  VisualOdometry(const cv::Mat& _K):K(_K){};
+  ~VisualOdometry(){};
 
-int main(int argc, char **argv) {
-  if (argc != 4) {
-    cout << "usage: pose_estimation_3d2d img1 img2 depth1" << endl;
-    return 1;
-  }
-  //-- 读取图像
-  Mat img_1 = imread(argv[1], cv::IMREAD_COLOR);
-  Mat img_2 = imread(argv[2], cv::IMREAD_COLOR);
-  assert(img_1.data && img_2.data && "Can not load images!");
 
+
+void PoseEstimation3d2d(const cv::Mat& img_1,const cv::Mat& img_2, const cv::Mat& d1, 
+  cv::Mat& R, cv::Mat& t )
+{
   vector<KeyPoint> keypoints_1, keypoints_2;
   vector<DMatch> matches;
   find_feature_matches(img_1, img_2, keypoints_1, keypoints_2, matches);
   cout << "一共找到了" << matches.size() << "组匹配点" << endl;
-
-  // 建立3D点
-  Mat d1 = imread(argv[3], cv::IMREAD_UNCHANGED);       // 深度图为16位无符号数，单通道图像
-  Mat K = (Mat_<double>(3, 3) << 520.9, 0, 325.1, 0, 521.0, 249.7, 0, 0, 1); //original example
-  //Mat K = (Mat_<double>(3, 3) << 1397.61133, 0, 976.10999, 0, 1395.06567, 532.28210, 0, 0, 1);  // calib Realsense D435i resolution 1920x1080
-		
-    
+   
   vector<Point3f> pts_3d;
   vector<Point2f> pts_2d;
   for (DMatch m:matches) {
@@ -67,18 +55,14 @@ int main(int argc, char **argv) {
   cout << "3d-2d pairs: " << pts_3d.size() << endl;
 
   chrono::steady_clock::time_point t1 = chrono::steady_clock::now();
-  Mat r, t;
+  Mat r;
   solvePnP(pts_3d, pts_2d, K, Mat(), r, t, false); // 调用OpenCV 的 PnP 求解，可选择EPNP，DLS等方法
-  Mat R;
+  
   cv::Rodrigues(r, R); // r为旋转向量形式，用Rodrigues公式转换为矩阵
   chrono::steady_clock::time_point t2 = chrono::steady_clock::now();
   chrono::duration<double> time_used = chrono::duration_cast<chrono::duration<double>>(t2 - t1);
   cout << "solve pnp in opencv cost time: " << time_used.count() << " seconds." << endl;
 
-  cout << "R=" << endl << R << endl;
-  cout << "t=" << endl << t << endl;
-
-  return 0;
 }
 
 void find_feature_matches(const Mat &img_1, const Mat &img_2,
@@ -135,3 +119,38 @@ Point2d pixel2cam(const Point2d &p, const Mat &K) {
       (p.y - K.at<double>(1, 2)) / K.at<double>(1, 1)
     );
 }
+
+  cv::Mat K;
+
+};
+
+
+
+
+
+
+int main(int argc, char **argv) {
+  if (argc != 4) {
+    cout << "usage: pose_estimation_3d2d img1 img2 depth1" << endl;
+    return 1;
+  }
+
+//Mat K = (Mat_<double>(3, 3) << 1397.61133, 0, 976.10999, 0, 1395.06567, 532.28210, 0, 0, 1);  // calib Realsense D435i resolution 1920x1080
+  Mat calibK = (Mat_<double>(3, 3) << 520.9, 0, 325.1, 0, 521.0, 249.7, 0, 0, 1); //original example
+  VisualOdometry vo = VisualOdometry(calibK);
+
+  Mat img_1 = imread(argv[1], cv::IMREAD_COLOR);
+  Mat img_2 = imread(argv[2], cv::IMREAD_COLOR);
+  assert(img_1.data && img_2.data && "Can not load images!");
+
+  Mat imgd_1 = imread(argv[3], cv::IMREAD_UNCHANGED);       // 深度图为16位无符号数，单通道图像
+  
+  Mat R, t;
+  vo.PoseEstimation3d2d(img_1,img_2,imgd_1,R,t);
+
+  cout << "R=" << endl << R << endl;
+  cout << "t=" << endl << t << endl;
+
+  return 0;
+}
+
