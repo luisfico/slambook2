@@ -50,6 +50,12 @@ target_link_libraries(pose_estimation_3d3d
         ${OpenCV_LIBS})
 
 
+
+add_executable(pose_estimation_3d2d_rs435_solvePnP pose_estimation_3d2d_rs435_solvePnP.cpp)
+target_link_libraries(pose_estimation_3d2d_rs435_solvePnP
+        ${G2O_LIBS}
+        ${OpenCV_LIBS})
+
 add_executable(pose_estimation_3d3d_rs435 pose_estimation_3d3d_rs435.cpp)
 target_link_libraries(pose_estimation_3d3d_rs435
         ${G2O_LIBS}
